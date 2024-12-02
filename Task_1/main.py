@@ -101,7 +101,105 @@ class TestVirtualShell(unittest.TestCase):
         
         print("Test for invalid 'cd' passed successfully")
 
+    @patch('sys.stdout', new_callable=StringIO)  
+    def test_wc(self, mock_stdout):
+        if TEST_MODE:
+            # Тест для команды wc
+            vfs = VirtualFileSystem("test.tar")
+            shell = VirtualShell(vfs, "test_log.json")
+            shell.vfs.files_content = {'test.txt': "Hello world\nThis is a test file\n"}
+            shell.process_command("wc test.txt")
+            
+            # Проверяем правильность вывода
+            self.assertIn("2 5 31 test.txt", mock_stdout.getvalue())
+        
+        print("Test for 'wc' passed successfully")
+    
+    @patch('sys.stdout', new_callable=StringIO)  
+    def test_wc_empty(self, mock_stdout):
+        if TEST_MODE:
+            # Тест для команды wc с пустым файлом
+            vfs = VirtualFileSystem("test.tar")
+            shell = VirtualShell(vfs, "test_log.json")
+            shell.vfs.files_content = {'empty.txt': ""}
+            shell.process_command("wc empty.txt")
+            
+            # Проверяем правильность вывода для пустого файла
+            self.assertIn("0 0 0 empty.txt", mock_stdout.getvalue())
+        
+        print("Test for 'wc' with empty file passed successfully")
+    
+    @patch('sys.stdout', new_callable=StringIO)  
+    def test_wc_invalid(self, mock_stdout):
+        if TEST_MODE:
+            # Тест для команды wc с несуществующим файлом
+            vfs = VirtualFileSystem("test.tar")
+            shell = VirtualShell(vfs, "test_log.json")
+            shell.vfs.files_content = {'test.txt': "Hello world\n"}
+            shell.process_command("wc non_existent.txt")
+            
+            # Проверяем, что ошибка была выведена
+            self.assertIn("No such file: non_existent.txt", mock_stdout.getvalue())
+        
+        print("Test for invalid 'wc' passed successfully")
+    
+    @patch('sys.stdout', new_callable=StringIO)  
+    def test_touch(self, mock_stdout):
+        if TEST_MODE:
+            # Тест для команды touch
+            vfs = VirtualFileSystem("test.tar")
+            shell = VirtualShell(vfs, "test_log.json")
+            shell.vfs.files_content = {}
+            shell.vfs.fs = {}
+            shell.process_command("touch newfile.txt")
+            
+            # Проверяем, что новый файл добавлен
+            self.assertIn("File newfile.txt created in virtual file system.", mock_stdout.getvalue())
+        
+        print("Test for 'touch' passed successfully")
 
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_touch_existing(self, mock_stdout):
+        if TEST_MODE:
+            # Тест для команды touch, когда файл уже существует
+            vfs = VirtualFileSystem("test.tar")
+            shell = VirtualShell(vfs, "test_log.json")
+            shell.vfs.files_content = {'existing.txt': "content"}
+            shell.process_command("touch existing.txt")
+            
+            # Проверяем, что файл не создан снова
+            self.assertIn("File existing.txt already exists.", mock_stdout.getvalue())
+        
+        print("Test for 'touch' with existing file passed successfully")
+
+    @patch('sys.stdout', new_callable=StringIO)  
+    def test_add_file_to_tar(self, mock_stdout):
+        if TEST_MODE:
+            # Тест для добавления файла в архив
+            vfs = VirtualFileSystem("test.tar")
+            shell = VirtualShell(vfs, "test_log.json")
+            shell.process_command("touch added_file.txt")
+            
+            # Проверяем, что вывод содержит сообщение о добавлении файла
+            self.assertIn("File added_file.txt added to the archive.", mock_stdout.getvalue())
+        
+        print("Test for 'add_file_to_tar' passed successfully")
+
+    @patch('sys.stdout', new_callable=StringIO)  
+    def test_log_action(self, mock_stdout):
+        if TEST_MODE:
+            # Тест для логирования действия
+            vfs = VirtualFileSystem("test.tar")
+            shell = VirtualShell(vfs, "test_log.json")
+            shell.process_command("ls")
+            
+            # Проверяем, что лог записан
+            with open("test_log.json", "r", encoding="utf-8") as log_file:
+                log_data = json.load(log_file)
+                self.assertEqual(len(log_data), 1)  
+                self.assertIn("ls", log_data[0]["command"])
+        
+        print("Test for 'log_action' passed successfully")
 TEST_MODE = os.getenv("RUN_TESTS", "false").lower() == "true"
 
 if __name__ == '__main__':
