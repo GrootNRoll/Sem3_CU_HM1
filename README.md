@@ -44,7 +44,7 @@ cd Task_1
 После перехода в каталог ``Task_1`` запускаем программу:
 
 ```
-python emulator.py
+python emulator.py <path_to_tar> <path_to_log>
 ```
 
 ## Команда для запуска юнит-тестов

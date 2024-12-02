@@ -2,5 +2,41 @@
     {
         "command": "ls",
         "timestamp": "2024-12-02T20:30:19.907716"
+    },
+    {
+        "command": "ls",
+        "timestamp": "2024-12-02T20:47:52.054219"
+    },
+    {
+        "command": "cd VirtualDevice",
+        "timestamp": "2024-12-02T20:48:02.774612"
+    },
+    {
+        "command": "pwd",
+        "timestamp": "2024-12-02T20:48:07.958020"
+    },
+    {
+        "command": "ls",
+        "timestamp": "2024-12-02T20:48:11.040888"
+    },
+    {
+        "command": "cd a",
+        "timestamp": "2024-12-02T20:48:13.604762"
+    },
+    {
+        "command": "pwd",
+        "timestamp": "2024-12-02T20:48:20.004337"
+    },
+    {
+        "command": "cd ..",
+        "timestamp": "2024-12-02T20:48:24.196373"
+    },
+    {
+        "command": "cd VirtualDevice",
+        "timestamp": "2024-12-02T20:48:31.931666"
+    },
+    {
+        "command": "wc 1.txt",
+        "timestamp": "2024-12-02T20:48:42.422163"
     }
 ]
