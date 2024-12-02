@@ -157,7 +157,23 @@ class VirtualShell:
         except Exception as e:
             print(f"Error: {e}")
 
+    def add_file_to_tar(self, file_name):
+        """Добавляет новый файл в архив в текущую директорию."""
+        # Создаем новый пустой файл
+        file_content = b""  # Пустое содержимое для нового файла
 
+        try:
+            # Открываем архив в режиме добавления
+            with tarfile.open(self.vfs.tar_file_path, "a") as tar:
+                # Создаем объект файла для записи в архив
+                file_obj = io.BytesIO(file_content)
+                # Путь файла внутри архива - добавляем в текущую директорию
+                current_dir_in_tar = self.vfs.current_path().strip("/") + "/"
+                tarinfo = tarfile.TarInfo(name=current_dir_in_tar + file_name)
+                tarinfo.size = len(file_content)  # Размер файла
+                tar.addfile(tarinfo, file_obj)
+        except Exception as e:
+            print(f"Error adding file to tar archive: {e}")
 
 
 if __name__ == "__main__":
