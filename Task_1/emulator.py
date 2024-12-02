@@ -175,6 +175,27 @@ class VirtualShell:
         except Exception as e:
             print(f"Error adding file to tar archive: {e}")
 
+    def log_action(self, command):
+        """Записывает действия в JSON лог-файл."""
+        action = {
+            "command": command,
+            "timestamp": datetime.now().isoformat()
+        }
+        try:
+            # Проверяем, существует ли лог-файл, и открываем его для записи
+            if os.path.exists(self.log_file_path):
+                with open(self.log_file_path, "r", encoding="utf-8") as log_file:
+                    log_data = json.load(log_file)
+            else:
+                log_data = []
+
+            log_data.append(action)
+
+            with open(self.log_file_path, "w", encoding="utf-8") as log_file:
+                json.dump(log_data, log_file, ensure_ascii=False, indent=4)
+        except Exception as e:
+            print(f"Error logging action: {e}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
