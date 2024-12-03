@@ -67,6 +67,8 @@ python -m unittest main.py
 
 ## Результат работы юнит-тестов
 
+![alt text](image-2.png)
 
 ## Результат работы программы
 
+![alt text](image-1.png)

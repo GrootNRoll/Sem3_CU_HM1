@@ -38,5 +38,37 @@
     {
         "command": "wc 1.txt",
         "timestamp": "2024-12-02T20:48:42.422163"
+    },
+    {
+        "command": "ls",
+        "timestamp": "2024-12-03T16:25:09.163524"
+    },
+    {
+        "command": "cd VirtualDevic",
+        "timestamp": "2024-12-03T16:25:23.511026"
+    },
+    {
+        "command": "cd VirtualDevice",
+        "timestamp": "2024-12-03T16:25:25.430871"
+    },
+    {
+        "command": "ls",
+        "timestamp": "2024-12-03T16:25:31.012152"
+    },
+    {
+        "command": "pwd",
+        "timestamp": "2024-12-03T16:25:50.727659"
+    },
+    {
+        "command": "wc 1.txt",
+        "timestamp": "2024-12-03T16:26:05.014557"
+    },
+    {
+        "command": "touch 3.txt",
+        "timestamp": "2024-12-03T16:26:14.816105"
+    },
+    {
+        "command": "ls",
+        "timestamp": "2024-12-03T16:26:18.639810"
     }
 ]
